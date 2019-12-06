@@ -25,7 +25,6 @@ export default class Header extends React.Component {
             url: 'https://restapi.amap.com/v3/weather/weatherInfo?key=2937ac9f98d40e3523fabd1948961a4a&city=' + encodeURIComponent(city)
         }).then((res) => {
             if (res.status === "1") {
-                debugger;
                 let weatherData = res.lives[0];
                 this.setState({
                     weather: weatherData.weather,
