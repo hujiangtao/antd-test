@@ -1,7 +1,8 @@
 import React from 'react';
 import { Menu } from 'antd';
+import { NavLink } from 'react-router-dom';
 import "./index.less";
-import MenuConfig from './../../config/menuConfig'
+import MenuConfig from './../../config/menuConfig';
 
 const { SubMenu } = Menu;
 
@@ -11,7 +12,7 @@ export default class Nav extends React.Component {
         this.state = {
             menuTreeNode: this.renderMenu(MenuConfig),
         };
-      }
+    }
 
     renderMenu = (data) => {
         return data.map((item) => {
@@ -22,7 +23,9 @@ export default class Nav extends React.Component {
                     </SubMenu>
                 );
             }
-        return <Menu.Item key={item.key}>{item.title}</Menu.Item>
+            return <Menu.Item key={item.key}>
+                <NavLink to={'/admin' + item.key}>{item.title}</NavLink>
+            </Menu.Item>
         });
     }
 
