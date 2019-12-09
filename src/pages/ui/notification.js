@@ -24,10 +24,10 @@ export default class Notification extends React.Component {
                     <Button type="primary" onClick={() => this.openNotification('error')}>Error</Button>
                 </Card>
                 <Card title="自定义位置的信息确认框" className="card card-wrap">
-                    <Button type="primary" onClick={() => this.openNotification('success','topLeft')}>Success</Button>
-                    <Button type="primary" onClick={() => this.openNotification('info','topRight')}>Info</Button>
-                    <Button type="primary" onClick={() => this.openNotification('warning','bottomLeft')}>Warning</Button>
-                    <Button type="primary" onClick={() => this.openNotification('error','bottomRight')}>Error</Button>
+                    <Button type="primary" onClick={() => this.openNotification('success', 'topLeft')}>Success</Button>
+                    <Button type="primary" onClick={() => this.openNotification('info', 'topRight')}>Info</Button>
+                    <Button type="primary" onClick={() => this.openNotification('warning', 'bottomLeft')}>Warning</Button>
+                    <Button type="primary" onClick={() => this.openNotification('error', 'bottomRight')}>Error</Button>
                 </Card>
             </div>
         );

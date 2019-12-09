@@ -16,7 +16,7 @@ export default class Buttons extends React.Component {
     }
 
     handleChange = (event) => {
-        this.setState({ size: event.target.value});
+        this.setState({ size: event.target.value });
     }
 
     render() {

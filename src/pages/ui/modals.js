@@ -36,10 +36,10 @@ export default class Buttons extends React.Component {
         Modal[type]({
             title: '确认',
             content: '今天的练习做完了吗？',
-            onOk(){
+            onOk() {
 
             },
-            onCancel(){
+            onCancel() {
 
             }
         })
@@ -64,7 +64,7 @@ export default class Buttons extends React.Component {
                     <p>学习离不开勤奋的练习，学习React也一样。</p>
                 </Modal>
 
-                <Modal title="顶部20px弹框" visible={this.state.showModal3} style={{top:20}}
+                <Modal title="顶部20px弹框" visible={this.state.showModal3} style={{ top: 20 }}
                     onCancel={() => this.handleCancel('showModal3')} onOk={() => this.handleCancel('showModal3')}>
                     <p>学习离不开勤奋的练习，学习React也一样。</p>
                 </Modal>
