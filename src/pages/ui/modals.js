@@ -21,7 +21,7 @@ export default class Buttons extends React.Component {
     }
 
     handleOk = (type) => {
-        this.setState({
+        this.setStcate({
             [type]: false
         });
     };
