@@ -78,7 +78,7 @@ export default class Tab extends React.Component {
                     </Tabs>
                 </Card>
                 <Card title="可编辑的页签" className="card card-wrap">
-                    <Tabs defaultActiveKey="1" onChange={this.onChange} type="editable-card" activeKey={this.state.activeKey} 
+                    <Tabs onChange={this.onChange} type="editable-card" activeKey={this.state.activeKey} 
                         onEdit={this.onEdit}
                     >
                         {
