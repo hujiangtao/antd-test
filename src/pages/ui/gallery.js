@@ -45,7 +45,7 @@ export default class Gallery extends React.Component {
                 <Row gutter="10">
                     {imgList1}
                 </Row>
-                <Modal visible={this.state.modalVisible} footer={null} className="modal-gallery"
+                <Modal visible={this.state.modalVisible} footer={null} className="modal-gallery" width={560} title="图片画廊"
                     onCancel={() => { this.setState( { modalVisible: false } ) } }
                 >
                     <img src={this.state.currentImg} alt="" className="img-gallery"/>
