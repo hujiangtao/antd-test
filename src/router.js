@@ -3,6 +3,7 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 import App from './app';
 import Admin from './admin';
 import Login from './pages/login';
+import NoMatch from './pages/no-match/index';
 import Buttons from './pages/ui/buttons';
 import Modals from './pages/ui/modals';
 import Loadings from './pages/ui/loadings';
@@ -13,7 +14,7 @@ import Gallery from './pages/ui/gallery';
 import Carousels from './pages/ui/carousel';
 import LoginForm from './pages/form/login';
 import FormRegister from './pages/form/register';
-import NoMatch from './pages/no-match/index';
+import BasicTable from './pages/table/basicTable';
 
 export default class IRouter extends React.Component {
     render() {
@@ -34,6 +35,7 @@ export default class IRouter extends React.Component {
                                 <Route path="/admin/ui/carousel" component={Carousels} />
                                 <Route path="/admin/form/login" component={LoginForm} />
                                 <Route path="/admin/form/reg" component={FormRegister} />
+                                <Route path="/admin/table/basic" component={BasicTable} />
                                 <Route component={NoMatch} />
                             </Switch>
                         </Admin>
