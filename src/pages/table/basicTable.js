@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Table } from 'antd';
+import axios from 'axios';
 import './table.less';
 
 export default class BasicTable extends React.Component {
@@ -42,6 +43,18 @@ export default class BasicTable extends React.Component {
         this.state = {
             sourceData: data
         };
+
+        this.request();
+    }
+
+    //获取mock动态数据
+    request = () =>{
+        let baseUrl = 'http://192.168.16.118:7300/mock/5df52264267c68079cfd7a0c/imoocapi';
+        axios.get(baseUrl + '/table/list').then((res) => {
+            if(res.status === 200 && res.data.code === 0){
+                this.setState({sourceData2: res.data.result.list})
+            }
+        })
     }
 
     render() {
@@ -75,7 +88,10 @@ export default class BasicTable extends React.Component {
         return (
             <div>
                 <Card title="基础表格" className="card card-wrap">
-                    <Table columns={columns} dataSource={this.state.sourceData} bordered />
+                    <Table columns={columns} dataSource={this.state.sourceData} bordered pagination={false}/>
+                </Card>
+                <Card title="动态渲染表格" className="card card-wrap">
+                    <Table columns={columns} dataSource={this.state.sourceData2} bordered />
                 </Card>
             </div>
         );
