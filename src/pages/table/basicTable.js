@@ -51,10 +51,13 @@ export default class BasicTable extends React.Component {
     request = () => {
         axios.ajax({
             url: '/table/list',
-            data: { params: { page: 1 } }
+            data: {
+                isShowLoading: true,
+                params: { page: 1 }
+            }
         }).then((res) => {
-            if(res.code === 0){
-                this.setState({sourceData2: res.result.list})
+            if (res.code === 0) {
+                this.setState({ sourceData2: res.result.list })
             }
         });
 
@@ -77,12 +80,37 @@ export default class BasicTable extends React.Component {
         }, {
             title: '性别',
             dataIndex: 'sex',
+            render(sex) {
+                return sex === 1 ? '男' : '女'
+            }
         }, {
             title: '状态',
             dataIndex: 'state',
+            render(state) {
+                let config = {
+                    '1': '上学中',
+                    '2': '工作中',
+                    '3': '待业中',
+                    '4': '创业中'
+                };
+                return config[state];
+            }
         }, {
             title: '爱好',
             dataIndex: 'interest',
+            render(interest) {
+                let config = {
+                    '1': '唱歌',
+                    '2': '足球',
+                    '3': '摄影',
+                    '4': '书法',
+                    '5': '弹钢琴',
+                    '6': '爬山',
+                    '7': '旅游',
+                    '8': '睡觉'
+                };
+                return config[interest];
+            }
         }, {
             title: '生日',
             dataIndex: 'birthday'
