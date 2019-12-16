@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table, Modal } from 'antd';
+import { Card, Table, Modal, Button, message } from 'antd';
 import axios from '../../axios';
 import './table.less';
 
@@ -60,17 +60,14 @@ export default class BasicTable extends React.Component {
         }).then((res) => {
             if (res.code === 0) {
                 res.result.list.map((item, index) => item.key = index);
-                this.setState({ sourceData2: res.result.list })
+                this.setState({ 
+                    sourceData2: res.result.list,
+                    selectedRowKeys: [],
+                    selectedRows: null
+                })
             }
         });
-
-        // 工程化之前的写法
-        // let baseUrl = 'http://192.168.16.118:7300/mock/5df52264267c68079cfd7a0c/imoocapi';
-        // axios.get(baseUrl + '/table/list').then((res) => {
-        //     if(res.status === 200 && res.data.code === 0){
-        //         this.setState({sourceData2: res.data.result.list})
-        //     }
-        // })
+        
     }
 
     onRowClick = (record, index) => {
@@ -78,11 +75,36 @@ export default class BasicTable extends React.Component {
             title: '信息',
             content: `用户名：${record.userName},用户爱好${record.interest}`
         });
-        
+
         let selectKey = [index];
         this.setState({
             selectedRowKeys: selectKey,
             selectedItem: record
+        })
+    }
+
+    handleDelete = () => {
+        let rows = this.state.selectedRows;
+        let ids = [];
+
+        if(rows === null){
+            Modal.warning({
+                title: '删除警告',
+                content: '你没有选中任何项'
+            });
+
+            return false;
+        }
+
+        rows.map((item) => ids.push(item.id));
+
+        Modal.confirm({
+            title:'删除提示',
+            content: `你确定要删除这些数据吗？ ${ids.join(',')}`,
+            onOk: () => {
+                message.success('删除成功');
+                this.request();
+            }
         })
     }
 
@@ -144,6 +166,16 @@ export default class BasicTable extends React.Component {
             type: 'radio',
             selectedRowKeys: selectedRowKeys
         };
+        const rowCheckboxSelection = {
+            type: 'checkbox',
+            selectedRowKeys,
+            onChange: (selectedRowKeys, selectedRows) => {
+                this.setState({
+                    selectedRowKeys,
+                    selectedRows
+                })
+            }
+        };
 
         return (
             <div>
@@ -161,6 +193,10 @@ export default class BasicTable extends React.Component {
                             }
                         }}
                     />
+                </Card>
+                <Card title="复选表格" className="card card-wrap">
+                    <Table columns={columns} dataSource={this.state.sourceData2} bordered rowSelection={rowCheckboxSelection} />
+                    <Button onClick={this.handleDelete}>删除</Button>
                 </Card>
             </div>
         );
