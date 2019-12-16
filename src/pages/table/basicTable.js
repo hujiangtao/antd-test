@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table } from 'antd';
+import { Card, Table, Modal } from 'antd';
 import axios from '../../axios';
 import './table.less';
 
@@ -40,6 +40,8 @@ export default class BasicTable extends React.Component {
             },
         ];
 
+        data.map((item, index) => item.key = index);
+
         this.state = {
             sourceData: data
         };
@@ -57,6 +59,7 @@ export default class BasicTable extends React.Component {
             }
         }).then((res) => {
             if (res.code === 0) {
+                res.result.list.map((item, index) => item.key = index);
                 this.setState({ sourceData2: res.result.list })
             }
         });
@@ -68,6 +71,19 @@ export default class BasicTable extends React.Component {
         //         this.setState({sourceData2: res.data.result.list})
         //     }
         // })
+    }
+
+    onRowClick = (record, index) => {
+        Modal.info({
+            title: '信息',
+            content: `用户名：${record.userName},用户爱好${record.interest}`
+        });
+        
+        let selectKey = [index];
+        this.setState({
+            selectedRowKeys: selectKey,
+            selectedItem: record
+        })
     }
 
     render() {
@@ -123,6 +139,12 @@ export default class BasicTable extends React.Component {
         }
         ];
 
+        const { selectedRowKeys } = this.state;
+        const rowSelection = {
+            type: 'radio',
+            selectedRowKeys: selectedRowKeys
+        };
+
         return (
             <div>
                 <Card title="基础表格" className="card card-wrap">
@@ -130,6 +152,15 @@ export default class BasicTable extends React.Component {
                 </Card>
                 <Card title="动态渲染表格" className="card card-wrap">
                     <Table columns={columns} dataSource={this.state.sourceData2} bordered />
+                </Card>
+                <Card title="单选表格" className="card card-wrap">
+                    <Table columns={columns} dataSource={this.state.sourceData2} bordered rowSelection={rowSelection}
+                        onRow={(record, index) => {
+                            return {
+                                onClick: () => this.onRowClick(record, index)
+                            }
+                        }}
+                    />
                 </Card>
             </div>
         );
