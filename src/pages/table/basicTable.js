@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Table, Modal, Button, message } from 'antd';
 import axios from '../../axios';
 import './table.less';
+import Utils from '../../utils/utils';
 
 export default class BasicTable extends React.Component {
     constructor(props) {
@@ -50,12 +51,12 @@ export default class BasicTable extends React.Component {
     }
 
     //获取mock动态数据
-    request = () => {
+    request = (param) => {
         axios.ajax({
             url: '/table/list',
             data: {
                 isShowLoading: true,
-                params: { page: 1 }
+                params: param
             }
         }).then((res) => {
             if (res.code === 0) {
@@ -63,7 +64,10 @@ export default class BasicTable extends React.Component {
                 this.setState({ 
                     sourceData2: res.result.list,
                     selectedRowKeys: [],
-                    selectedRows: null
+                    selectedRows: null,
+                    pagination: Utils.pagination(res, (current) => {
+                        this.request({page: current});
+                    })
                 })
             }
         });
@@ -197,6 +201,9 @@ export default class BasicTable extends React.Component {
                 <Card title="复选表格" className="card card-wrap">
                     <Table columns={columns} dataSource={this.state.sourceData2} bordered rowSelection={rowCheckboxSelection} />
                     <Button onClick={this.handleDelete}>删除</Button>
+                </Card>
+                <Card title="分页表格" className="card card-wrap">
+                    <Table columns={columns} dataSource={this.state.sourceData2} rowSelection={rowCheckboxSelection} pagination={this.state.pagination}/>
                 </Card>
             </div>
         );
