@@ -31,7 +31,7 @@ export default class Nav extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="nav-left">
                 <div className="logo">
                     <img src="/assets/logo-ant.svg" alt="" />
                     <h1>Imooc MS</h1>
