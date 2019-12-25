@@ -1,3 +1,8 @@
+import React from 'react';
+import { Select } from 'antd';
+
+const Option = Select.Option;
+
 export default {
     formatDate() {
         let currentDate = new Date();
@@ -16,5 +21,18 @@ export default {
             showTotal: () => `共${data.result.total_count}条`,
             showQuickJumper: true
         }
+    },
+
+    getOptionList(data) {
+        if(!data){
+            return [];
+        }
+
+        let options = [];
+        data.forEach(item => {
+            options.push(<Option value={item.id} key={item.id}>{item.name}</Option>)
+        });
+
+        return options;
     }
 }
